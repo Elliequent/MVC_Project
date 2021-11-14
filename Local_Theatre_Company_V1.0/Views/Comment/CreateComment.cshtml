@@ -1,0 +1,61 @@
+﻿@model Local_Theatre_Company_V1._0.Models.ViewModels.CreateCommentViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <style>
+
+            textarea {
+                width: 200px;
+                height: 200px;
+            }
+
+        </style>
+
+        <h4> Have your say at Local Theatre Company </h4>
+
+        <hr />
+
+        <div class="form-group">
+            @Html.Hidden("BlogID", (object)ViewBag.ID)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+        <p><span style="color: red"> @ViewBag.Error </span></p>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit Comment" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<br />
+<br />
+
+<h4 style="text-align: center"> Your comment will be held for review and made visable when a moderator approves it.  </h4>
+<p style="text-align: center"> Breaking LTC rules will mean your account will be suspended by a moderator </p>
+
+<br />
+
+<div>
+    @Html.ActionLink("Back to Comments", "Comments", new { id = Model.BlogID })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

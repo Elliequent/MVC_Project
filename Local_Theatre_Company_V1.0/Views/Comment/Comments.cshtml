@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Local_Theatre_Company_V1._0.Models.Comment>
+
+@{
+    ViewBag.Title = "Comments";
+}
+
+<h2>
+    @if (User.IsInRole("Admin"))
+    {
+
+        <span style="color: red;">Admin</span> <span> | Comment List </span>
+
+    }
+
+    @if (@Model.ToArray().Count() > 0)
+    {
+
+        <h4> Comment List for Blog "@Model.ToArray()[0].Blog.Title" </h4>
+
+    }
+
+    <br />
+    <br />
+
+</h2>
+
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="text" name="searchString" placeholder="Search Comments Here" />
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+
+}
+
+<br />
+
+<p><span style="color: red"> @ViewBag.Error </span></p>
+
+<br />
+
+<table class="table">
+    <tr>
+
+        <th>
+            <p> Comment Author </p>
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Body)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.PostedOn)
+        </th>
+
+        <th>
+            <p> Comment Approved </p>
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                <p> @Html.DisplayFor(modelItem => item.Customer.FirstName) @Html.DisplayFor(modelItem => item.Customer.LastName) </p>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PostedOn)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CommentBlocked)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Edit", "EditComment", new { id = item.CommentID }, new { @class = "btn btn-success" })
+
+                @if (item.CommentBlocked == true)
+                {
+
+                    @Html.ActionLink("Approve", "Approve", new { id = item.CommentID }, new { @class = "btn btn-primary" })
+
+                }
+
+                @if (item.Customer.CurrentRole != "Suspended")
+                {
+
+                    @Html.ActionLink("Suspend", "Suspend", new { id = item.CommentID }, new { @class = "btn btn-info" })
+
+                }
+                else if (item.Customer.CurrentRole == "Suspended")
+                {
+
+                    @Html.ActionLink("UnSuspend", "UnSuspend", new { id = item.CommentID }, new { @class = "btn btn-info" })
+
+                }
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.CommentID }, new { @class = "btn btn-danger" })
+            
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+
+<div>
+    @Html.ActionLink("Back to Blog List", "Blogs", "Blog")
+</div>

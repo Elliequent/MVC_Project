@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+
+    <!-- JavaScript -->
+    <script src="https://kit.fontawesome.com/34d9021f0e.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-dark navbar-fixed-top navbar_transparent">
+        <div class="container navbar_links">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href='@Url.Action("Index", "Home")'>
+                    <div style="display: inline-flex">
+                        <img src='@Url.Content("~/Images/LTC_Logo_Transparent.png")' class="main_logo" /> <h4 style="font-family: 'Open Sans'; margin-top: 14px; font-size: medium; padding-right: 20px;" class="navbar_links"> Local Theatre Company </h4>
+                    </div>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav justify-content-center">
+                    <li> <a href="~/Home/WhatsOn" class="navbar_links">What's On</a> </li>
+                    <li> <a href="~/Home/About" class="navbar_links">About Us</a> </li>
+                    <li> <a href="~/Home/Contact" class="navbar_links">Contact Us</a> </li>
+                    <li> <a href="~/Home/Blog" class="navbar_links">Blog</a> </li>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff") || User.IsInRole("Moderator"))
+                    {
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span style="color: red"> ADMIN </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="admin_menu">
+
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                                    {
+
+                                        <a href="~/Admin/Users" class="navbar_links">User Admin</a>
+
+                                    }
+
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
+                                    {
+
+                                        <a href="~/Play/Plays" class="navbar_links">Play Admin</a>
+
+                                    }
+
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Moderator"))
+                                    {
+
+                                        <a href="~/Blog/Blogs" class="navbar_links">Blog Admin</a>
+
+                                    }
+
+                                </div>
+                            </div>
+                        </li>
+
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <div class="container_min_height">
+            @RenderBody()
+        </div>
+        <hr />
+        <footer>
+            <p style="padding: 0; margin: 0; display: flex">
+                <div style="color: white; float: left; font-size: 1.5em;">&copy; @DateTime.Now.Year - Local Theatre Company</div>
+                <div style="float: right; color: white; font-size: 1.5em;"> Connect with us on: <a href="#"><i class="fab fa-facebook-square"></i></a> <a href="#"><i class="fab fa-twitter-square"></i></a> <a href="#"><i class="fab fa-instagram-square"></i></a> </div>
+            </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿@model Local_Theatre_Company_V1._0.Models.ViewModels.WhatsOnViewModel
+
+<link rel="stylesheet" type="text/css" href="~/Content/WhatsOn.css">
+
+<img src="~/Images/background.jpg" class="background_display" alt="Alternate Text" />
+
+<div class="container" style="position: relative; box-sizing: border-box; justify-content: center; align-items: center;">
+    <div class="row display_box" style="position: absolute; justify-content: center; align-items: center;">
+
+        <div class="col-md-4 col-sm-12">
+            <h1 style="text-align: center" class="title"> @Model.PlayName </h1>
+            <br />
+            <br />
+            <br />
+            <h2 style="text-align: center" class="title"> FROM @Model.PlayStart.ToLongDateString() TO @Model.PlayEnd.ToLongDateString() </h2>
+            <br />
+            <br />
+            <br />
+            <h2 style="text-align: center" class="title"> AT THE LOCAL THEATRE COMPANY </h2>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <img style="margin-left: auto; margin-right: auto;"src="@Model.PlayPoster" alt="@Model.PlayName Poster" width="300"/>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <h3 style="color: black; text-align: center;"> @Model.PlayDescription </h3>
+
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Local_Theatre_Company_V1._0.Models.Comment>
+
+<link rel="stylesheet" type="text/css" href="~/Content/Blog.css">
+
+<div class="row">
+    <div class="leftcolumn">
+
+        @if (User.IsInRole("Suspended"))
+        {
+
+            <br />
+            <button class="btn btn-danger"> Suspended Users Cannot Leave Comments </button>
+            <br />
+
+        }
+        else
+        {
+
+            <br />
+            @Html.ActionLink("Add a comment", "CreateComment", new { id = ViewBag.ID }, new { @class = "btn btn-primary" })
+            <br />
+
+        }
+
+        @foreach (var item in Model)
+        {
+
+            <div class="card">
+                <h2>@item.Customer.FirstName @item.Customer.LastName</h2>
+                <h5>@item.PostedOn.ToShortDateString()</h5>
+                <p>@item.Body</p>
+                @if (User.Identity.Name == item.Customer.UserName)
+                {
+
+                    @Html.ActionLink("Edit your comment", "EditComment", new { id = item.CommentID }, new { @class = "btn btn-success" })
+
+                }
+            </div>
+
+        }
+
+    </div>
+</div>
+
+<br />
+<br />
+
+    <div>
+        @Html.ActionLink("Back to Blog List", "Blogs", "Blog")
+    </div>
+
+
+
+

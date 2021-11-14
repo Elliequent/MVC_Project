@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Local_Theatre_Company_V1._0.Models.Play>
+
+@{
+    ViewBag.Title = "Plays";
+}
+
+<h2>
+    @if (User.IsInRole("Admin"))
+    {
+
+        <span style="color: red;">Admin</span> <span> | </span>
+
+    }
+
+    Play List
+
+    <br />
+    <br />
+
+</h2>
+
+@if (User.IsInRole("Admin"))
+{
+
+    <p>
+        <a href="~/Play/CreatePlay" class="btn btn-primary">Create New Play</a>
+    </p>
+
+    <br />
+
+}
+
+
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="text" name="searchString" placeholder="Search Plays Here" />
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayPoster)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayType)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayName)
+            </td>
+
+            @if (item.PlayStart <= DateTime.Now && item.PlayEnd >= DateTime.Now)
+            {
+
+                <td>
+                    <span style="text-align: center; text-decoration: solid; background-color: lightgreen;"> Currently Showing </span> <br />
+                    @Html.DisplayFor(modelItem => item.PlayStart)
+                </td>
+
+            }
+            else
+            {
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayStart)
+                </td>
+
+            }
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayEnd)
+            </td>
+            <td>
+                <img src="@item.PlayPoster" width="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayType)
+            </td>
+            <td>
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+
+                    @Html.ActionLink("Edit", "EditPlay", new { id = item.PlayId }, new { @class = "btn btn-success" })
+
+                }
+
+                @Html.ActionLink("Details", "Details", new { id = item.PlayId }, new { @class = "btn btn-warning" })
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PlayId }, new { @class = "btn btn-danger" })
+
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>

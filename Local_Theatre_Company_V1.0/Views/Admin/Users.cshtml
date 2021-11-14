@@ -1,0 +1,248 @@
+﻿@model IEnumerable<Local_Theatre_Company_V1._0.Models.User>
+@using Local_Theatre_Company_V1._0.Models
+
+@{
+    ViewBag.Title = "User List";
+}
+
+<h2> <span style="color: red;">Admin</span> | User List</h2>
+
+<br />
+
+<p>
+    <a href="~/Admin/CreateEmployee" style="margin-right: 5px;" class="btn btn-primary">Create New Staff</a> <a href="~/Admin/CreateRole" class="btn btn-primary">Create New Role</a>
+</p>
+
+
+<br />
+
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="text" name="searchString" placeholder="Search Users Here" />
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+
+}
+
+<br />
+<div style="display: inline-flex">
+    <div style="background-color: #dfffcb; border-radius: 50%; width: 20px; height: 20px; border: 1px solid #000000; margin-left: 10px; margin-right: 10px;"></div> <p>Customer</p>
+    <div style="background-color: #ffd7d7; border-radius: 50%; width: 20px; height: 20px; border: 1px solid #000000; margin-left: 10px; margin-right: 10px;"></div> <p>Admin</p>
+    <div style="background-color: #c7e4ff; border-radius: 50%; width: 20px; height: 20px; border: 1px solid #000000; margin-left: 10px; margin-right: 10px;"></div> <p>Staff</p>
+    <div style="background-color: #fcb786; border-radius: 50%; width: 20px; height: 20px; border: 1px solid #000000; margin-left: 10px; margin-right: 10px;"></div> <p>Suspended Account</p>
+</div>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegisteredAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentRole)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        if (item.CurrentRole == "Customer")
+        {
+
+            <tr style="background-color: #dfffcb">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegisteredAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentRole)
+                </td>
+                <td>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+
+                        @Html.ActionLink("Edit", "Edit" + (item is Employee ? "Staff" : "Customer"), new { id = item.Id }, new { @class = "btn btn-success" })
+
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+
+                        @Html.ActionLink("Change Role", "ChangeRole", new { id = item.Id }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                    }
+
+                </td>
+                    
+            </tr>
+
+        }
+        else if (item.CurrentRole == "Admin")
+        {
+
+            <tr style="background-color: #ffd7d7">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegisteredAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentRole)
+                </td>
+                <td>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+
+                        @Html.ActionLink("Edit", "Edit" + (item is Employee ? "Staff" : "Customer"), new { id = item.Id }, new { @class = "btn btn-success" })
+
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+
+                        @Html.ActionLink("Change Role", "ChangeRole", new { id = item.Id }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                    }
+
+                </td>
+            </tr>
+
+        }
+        else if (item.CurrentRole == "Suspended")
+        {
+
+            <tr style=" background-color: #fcb786">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegisteredAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentRole)
+                </td>
+                <td>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+
+                        @Html.ActionLink("Edit", "Edit" + (item is Employee ? "Staff" : "Customer"), new { id = item.Id }, new { @class = "btn btn-success" })
+
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+
+                        @Html.ActionLink("Change Role", "ChangeRole", new { id = item.Id }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                    }
+
+                </td>
+            </tr>
+
+        }
+        else 
+        {
+
+            <tr style="background-color: #c7e4ff">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegisteredAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentRole)
+                </td>
+                <td>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+
+                        @Html.ActionLink("Edit", "Edit" + (item is Employee ? "Staff" : "Customer"), new { id = item.Id }, new { @class = "btn btn-success" })
+
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+
+                        @Html.ActionLink("Change Role", "ChangeRole", new { id = item.Id }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                    }
+
+                </td>
+            </tr>
+
+        }
+
+    }
+
+</table>

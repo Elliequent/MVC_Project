@@ -1,0 +1,91 @@
+﻿@model Local_Theatre_Company_V1._0.Models.Blog
+
+<h2>
+    @if (User.IsInRole("Admin"))
+    {
+
+        <span style="color: red;">Admin</span> <span> | </span>
+
+    }
+
+    Blog Details
+
+    <br />
+    <br />
+
+</h2>
+
+<div class="row">
+
+    <hr />
+
+    <div class="col-md-8 col-sm-12">
+
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <br />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Body)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Body)
+            </dd>
+
+            <br />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostedOn)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PostedOn)
+            </dd>
+
+            <br />
+
+            <dt>
+                <p> Post Author </p>
+            </dt>
+            <dd>
+                <p> @Model.Employee.FirstName @Model.Employee.LastName </p>
+            </dd>
+
+            <br />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Catagory)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Catagory.Name)
+            </dd>
+
+            <br />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Published)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Published)
+            </dd>
+
+        </dl>
+
+    </div>
+
+    <div class="col-md-4 col-sm-12">
+        <img src="@Model.BlogImage" width="200" />
+    </div>
+
+</div>
+
+<p>
+    @Html.ActionLink("Back to Blog List", "Blogs")
+    @Html.ActionLink("Edit", "EditBlog", new { id = Model.BlogID }, new { @class = "btn btn-success" })
+</p>

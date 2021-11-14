@@ -1,0 +1,200 @@
+﻿/*--------------------------------------- Fonts CSS -------------------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+/*--------------------------------------- Main CSS -------------------------------------------------------------------------*/
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 20px;
+}
+
+/* Setting page to a minimum height of 80% of page to ensure footer is always at the bottom of the page */
+.container_min_height {
+    min-height: 450px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.btn {
+    margin: 5px;
+}
+
+/*--------------------------------------- Navbar CSS -------------------------------------------------------------------------*/
+
+.navbar_transparent {
+    background-color: rgba(0,0,0,0.50) !important;
+}
+
+.navbar_links, .navbar a {
+    color: #EEEEEEEE !important;
+    text-decoration: none;
+}
+
+    .navbar_links:hover {
+        color: #FFFFFFFF;
+        text-decoration: none;
+    }
+
+.navbar li:hover, nav a:hover {
+    background-color: none;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    background-color: transparent !important;
+}
+
+.dropdown-menu {
+    background-color: rgba(0,0,0,0.50) !important;
+    margin-top: 7px !important;
+}
+
+.admin_menu {
+    display: flex;
+    flex-direction: column;
+}
+
+    .admin_menu a {
+        margin-top: 5px;
+        text-align: center;
+    }
+
+/*--------------------------------------- Main Logo CSS ---------------------------------------------------------------------*/
+
+.navbar .main_logo {
+    height: 50px;
+    padding-right: 10px;
+}
+
+/* ------------------------------------- Password checker Section --------------------------------------------------------- */
+
+form .field .showBtn {
+    position: relative;
+    top: 6px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    display: none;
+}
+
+.password_area {
+    display: flex;
+}
+
+form .indicator {
+    height: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    width: 30%;
+    display: none;
+}
+
+form .indicator span {
+    width: 100%;
+    height: 100%;
+    background-color: lightgrey;
+    border-radius: 5px;
+}
+
+form .indicator span:nth-child(2) {
+    margin: 0 3px;
+}
+
+#form .indicator span.active:before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #FF4757;
+}
+
+.weak_red {
+    background-color: #FF4757 !important;
+}
+
+.medium_orange {
+    background-color: orange !important;
+}
+
+.strong_green {
+    background-color: #23AD5C !important;
+}
+
+form .password_msg {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: -10px;
+    display: none;
+}
+
+form .password_msg.weak {
+    color: #FF4757;
+}
+
+form .password_msg.medium {
+    color: orange;
+}
+
+form .password_msg.strong {
+    color: #23AD5C;
+}
+
+/*--------------------------------------- Footer Section CSS ----------------------------------------------------------------*/
+
+footer {
+    background-color: #211717;
+    height: 100%;
+    padding: 50px;
+    padding-bottom: 70px;
+    color: white;
+}
+
+@media (min-width: 992px) footer {
+    width: 970px;
+}
+
+@media (min-width: 768px) footer {
+    width: 750px;
+}
+
+footer a, i {
+    color: #FFFFFFFF;
+}
+
+footer a, i:hover {
+    color: #FFFFFFFF;
+}

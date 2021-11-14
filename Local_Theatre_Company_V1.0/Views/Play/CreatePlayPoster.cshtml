@@ -1,0 +1,37 @@
+﻿@model Local_Theatre_Company_V1._0.Models.ViewModels.CreatePlayPosterViewModels
+
+@{
+    ViewBag.Title = "CreatePlayPoster";
+}
+
+<h2><span style="color: red;">Admin</span> | Submit Play Poster</h2>
+
+
+@using (Html.BeginForm("CreatePlayPoster", "Play", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <label for="file">Upload Image:</label>
+                <input type="file" name="file" id="file" /><br>
+                <input type="submit" value="Create Play" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+<p><span style="color: red"> @ViewBag.Error </span></p>
+<br />
+
+<div>
+    @Html.ActionLink("Back to User List", "Plays")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

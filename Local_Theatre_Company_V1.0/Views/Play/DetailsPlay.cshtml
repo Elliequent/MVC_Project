@@ -1,0 +1,91 @@
+﻿@model Local_Theatre_Company_V1._0.Models.Play
+
+@{
+    ViewBag.Title = "DetailsPlay";
+}
+
+    <h2>
+        @if (User.IsInRole("Admin"))
+        {
+
+            <span style="color: red;">Admin</span> <span> | </span>
+
+        }
+
+        Edit Play
+
+        <br />
+        <br />
+
+    </h2>
+
+<div class="row">
+
+    <hr />
+
+    <div class="col-md-8 col-sm-12">
+
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlayName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlayName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlayStart)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlayStart)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlayEnd)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlayEnd)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlayPoster)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlayPoster)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlayDescription)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlayDescription)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlayType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlayType)
+            </dd>
+
+        </dl>
+
+    </div>
+
+      <div class="col-md-4 col-sm-12">
+            <img src="@Model.PlayPoster" width="200" />
+      </div>
+
+</div>
+
+<p>
+    @Html.ActionLink("Back to Play List", "Plays")
+
+    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+    {
+
+        @Html.ActionLink("Edit", "EditPlay", new { id = Model.PlayId }, new { @class = "btn btn-success" })
+
+    }
+</p>

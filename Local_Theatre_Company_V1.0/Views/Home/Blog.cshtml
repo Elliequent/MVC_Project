@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Local_Theatre_Company_V1._0.Models.Blog>
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/Blog.css">
+
+<div class="header">
+    <h2> <i class="fas fa-theater-masks fa-x2"></i>   Local Theatre Company Blog   <i class="fas fa-theater-masks fa-x2"></i></h2>
+</div>
+
+<div class="row">
+    <div class="leftcolumn">
+
+            @foreach (var item in Model)
+            {
+
+                <div class="card" id="@item.BlogID">
+                    <h2 style="text-align: center">@item.Title</h2>
+                    <h5 style="text-align: center">@item.PostedOn.ToShortDateString()</h5>
+                    <img src="@item.BlogImage" style="width: 100%">
+                    <br />
+                    <hr />
+                    <p>@item.Body</p>
+                    <hr />
+                    <br />
+                    @Html.ActionLink("Comments", "View_Comments", "Comment", new { id = item.BlogID }, new { @class = "btn btn-success",  @style="width: 100%;" })
+                </div>
+
+            }
+
+    </div>
+
+    <div class="rightcolumn">
+        <div class="card">
+            @using (@Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div>
+                    <input type="text" name="searchString" style="width: 100%; margin-left: 5px;" placeholder="Search Catagories Here" />
+                    <input type="submit" value="Search" style="width: 100%;" class="btn btn-primary" />
+                </div>
+
+            }
+        </div>
+
+        <div class="card">
+            <a href="#@Model.ToArray().Last().BlogID" style="text-decoration: none; color: black; text-align: center;">
+                <h3>Most recent Post</h3>
+                <img src="@Model.ToArray().Last().BlogImage" class="fakeimg"><br />
+            </a>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Local_Theatre_Company_V1._0.Models.Blog>
+
+@{
+    ViewBag.Title = "Blogs";
+}
+
+<h2>
+    @if (User.IsInRole("Admin"))
+    {
+
+        <span style="color: red;">Admin</span> <span> | </span>
+
+    }
+
+    Blog List
+
+    <br />
+    <br />
+
+</h2>
+
+@if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Moderator"))
+{
+
+    <p>
+        <a href="~/Blog/CreateBlog" style="margin-right: 5px;" class="btn btn-primary">Create New Blog</a> <a href="~/Blog/CreateCatagory" class="btn btn-primary">Create New Catagory</a>
+    </p>
+
+    <br />
+
+}
+
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="text" name="searchString" placeholder="Search Blogs Here" />
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+
+}
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+
+        <th>
+            <p> Catagory </p>
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.BlogImage)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.PostedOn)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Published)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Catagory.Name)
+            </td>
+
+            <td>
+                <img src="@item.BlogImage" width="50" />
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PostedOn)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Published)
+            </td>
+
+            <td>
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Moderator"))
+                {
+
+                    @Html.ActionLink("Edit", "EditBlog", new { id = item.BlogID }, new { @class = "btn btn-success" })
+
+                }
+
+                @Html.ActionLink("Details", "DetailsBlog", new { id = item.BlogID }, new { @class = "btn btn-info" })
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Moderator"))
+                {
+
+                    @Html.ActionLink("Comments", "Comments", "Comment", new { id = item.BlogID }, new { @class = "btn btn-warning" })
+
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Moderator"))
+                {
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BlogID }, new { @class = "btn btn-danger" })
+
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>

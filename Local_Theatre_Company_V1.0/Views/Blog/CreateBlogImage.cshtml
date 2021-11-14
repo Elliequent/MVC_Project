@@ -1,0 +1,38 @@
+﻿@model Local_Theatre_Company_V1._0.Models.ViewModels.CreateBlogImageViewModel
+
+@{
+    ViewBag.Title = "CreateBlogImage";
+}
+
+    <h2><span style="color: red;">Admin</span> | Create Blog Image</h2>
+
+
+@using (Html.BeginForm("CreateBlogImage", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+
+        <br />
+        <p><span style="color: red"> @ViewBag.Error </span></p>
+        <br />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <label for="file">Upload Image:</label>
+                <input type="file" name="file" id="file" /><br>
+                <input type="submit" value="Create Blog" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Blog List", "Blogs")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
